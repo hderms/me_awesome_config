@@ -64,20 +64,19 @@ layouts =
   awful.layout.suit.max.fullscreen,
   awful.layout.suit.magnifier
 }
- -- {{{ Tags
- tags = {
-   settings = {
-     { names  = { "rss", "log", "ssh", "im", "irc" },
-       layout = { layouts[2], layouts[6], layouts[6], layouts[1], layouts[2] }
-     },
-     { names  = { "vim",  "terminal", "test",  "www" },
-       layout = { layouts[3], layouts[2], layouts[2], layouts[1] }
- }}}
- 
- for s = 1, screen.count() do
-     tags[s] = awful.tag(tags.settings[s].names, s, tags.settings[s].layout)
- end
- -- }}}
+-- {{{ Tags
+tags = {
+   names  = {  "vim", "ssh", "im", "irc", "log",  "terminal", "test",  "www" },
+  layout = {  layouts[3], layouts[6], layouts[1], layouts[2],  layouts[3], layouts[2], layouts[2], layouts[1] }
+}
+
+for s = 1, screen.count() do
+  tags[s] = awful.tag(tags.names, s, tags.layout)
+end
+-- {{{ Rules
+
+-- }}}
+-- }}}
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
@@ -339,6 +338,21 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                   properties = { floating = true } },
                                   { rule = { class = "gimp" },
                                   properties = { floating = true } },
+
+                                  -- Set Firefox to always map on tags number 1 of screen 1.
+                                  { rule = { class = "Firefox" },
+                                  properties = { tag = tags[1][8] } },
+                                  { rule = { class = "Gvim" },
+                                  properties = { size_hints_honor = false, tag = tags[1][1] } },
+                                  { rule = { class = "Google-chrome" },
+                                  properties = { maximized_vertical = true, maximized_horizontal = true, tag = tags[1][8] } },
+                                  { rule = { class = "Google-chrome" },
+                                  properties = { maximized_vertical = true, maximized_horizontal = true, tag = tags[1][8] } },
+                                  { rule = { class = "Google-chrome" },
+                                  properties = { maximized_vertical = true, maximized_horizontal = true, tag = tags[1][8] } },
+
+
+
                                   -- Set Firefox to always map on tags number 2 of screen 1.
                                   -- { rule = { class = "Firefox" },
                                   --   properties = { tag = tags[1][2] } },
